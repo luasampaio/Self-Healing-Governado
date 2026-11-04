@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------
+# Self-Healing Governado — Configuração global
+# ---------------------------------------------------------------
+
+project:
+  name: "Self-Healing Governado"
+  version: "0.1.0"
+  environment: "development"
+
+# Diretórios
+paths:
+  contracts_dir: "../contracts"
+  audit_log: "../output/audit_log.jsonl"
+  quarantine_output: "../output/quarantine/"
+  review_output: "../output/review_pending/"
+  approved_output: "../output/approved/"
+
+# Policy Engine
+policy:
+  max_corrections_per_record: 3
+  quarantine_on_missing_required: true
+  quarantine_on_schema_violation: true
+  min_heuristic_confidence: 0.85
+
+# Heurísticas
+heuristics:
+  confidence_threshold: 0.85
+  enabled:
+    - uf_from_known_cities
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(name)s | %(levelname)s | %(message)s"

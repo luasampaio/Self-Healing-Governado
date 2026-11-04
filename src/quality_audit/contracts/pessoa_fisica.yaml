@@ -1,0 +1,131 @@
+# ---------------------------------------------------------------
+# Contrato de qualidade: Pessoa Física
+# ---------------------------------------------------------------
+# Define o schema esperado, campos obrigatórios, regras de domínio
+# e validações para registros de pessoa física.
+# ---------------------------------------------------------------
+
+entity_name: pessoa_fisica
+version: "1.0.0"
+
+metadata:
+  owner: "engenharia_de_dados"
+  domain: "cadastro"
+  description: "Contrato de qualidade para registros de pessoa física"
+  created_at: "2026-05-02"
+
+unique_keys:
+  - cpf
+
+fields:
+  - name: id
+    dtype: string
+    required: true
+    nullable: false
+    description: "Identificador único do registro"
+
+  - name: nome
+    dtype: string
+    required: true
+    nullable: false
+    description: "Nome completo da pessoa"
+
+  - name: cpf
+    dtype: string
+    required: true
+    nullable: false
+    regex: "^\\d{11}$"
+    owner: "juridico"
+    description: "CPF (somente dígitos, sem pontuação)"
+
+  - name: data_nascimento
+    dtype: string
+    required: true
+    nullable: false
+    regex: "^\\d{4}-\\d{2}-\\d{2}$"
+    description: "Data de nascimento (formato YYYY-MM-DD)"
+
+  - name: email
+    dtype: string
+    required: false
+    nullable: true
+    description: "Endereço de e-mail"
+
+  - name: telefone
+    dtype: string
+    required: false
+    nullable: true
+    description: "Telefone de contato"
+
+  - name: endereco
+    dtype: string
+    required: false
+    nullable: true
+    description: "Endereço completo"
+
+  - name: cidade
+    dtype: string
+    required: false
+    nullable: true
+    description: "Cidade"
+
+  - name: uf
+    dtype: string
+    required: true
+    nullable: false
+    allowed_values:
+      - AC
+      - AL
+      - AP
+      - AM
+      - BA
+      - CE
+      - DF
+      - ES
+      - GO
+      - MA
+      - MT
+      - MS
+      - MG
+      - PA
+      - PB
+      - PR
+      - PE
+      - PI
+      - RJ
+      - RN
+      - RS
+      - RO
+      - RR
+      - SC
+      - SP
+      - SE
+      - TO
+    description: "Unidade Federativa (sigla de 2 letras)"
+
+  - name: cep
+    dtype: string
+    required: false
+    nullable: true
+    regex: "^\\d{8}$"
+    description: "CEP (somente dígitos)"
+
+  - name: renda_mensal
+    dtype: float
+    required: false
+    nullable: true
+    min_value: 0.0
+    max_value: 1000000.0
+    owner: "financeiro"
+    description: "Renda mensal declarada em reais"
+
+  - name: status
+    dtype: string
+    required: true
+    nullable: false
+    allowed_values:
+      - ativo
+      - inativo
+      - bloqueado
+    owner: "operacoes"
+    description: "Status do cadastro"
